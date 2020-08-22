@@ -7,6 +7,8 @@
 运行环境: nodejs 10.0.0 及更高版本
 
 ```
+git clone https://github.com/zhaoolee/bilibili-wallpaper.git
+cd bilibili-wallpaper
 npm i
 npm start
 ```
