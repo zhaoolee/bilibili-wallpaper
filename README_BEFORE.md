@@ -44,11 +44,11 @@ bilibili秋
 
 摩羯座
 
-![](https://raw.githubusercontent.com/zhaoolee/bilibili-wallpaper/master/README/1610276373515K5ZYC4fb.png)
+![](http://v2fy.com/asset/bilibili_wallpaper/3203841-64d10ef727998b1b.png)
 文豪试炼活动
 
-![](https://raw.githubusercontent.com/zhaoolee/bilibili-wallpaper/master/README/161027637717078xzGH4x.jpg)
+![](http://v2fy.com/asset/bilibili_wallpaper/3203841-0ed599ece9511733.jpg)
 
 程序员日壁纸
 
-![](https://raw.githubusercontent.com/zhaoolee/bilibili-wallpaper/master/README/1610276377329iky2BfQr.png)
+![](http://v2fy.com/asset/bilibili_wallpaper/3203841-ee56972a7e14ff43.png)
