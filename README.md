@@ -1,5 +1,8 @@
 # bilibili-wallpaper
 
+登录bilibili.com
+
+将 [https://api.vc.bilibili.com/link_draw/v1/doc/doc_list?uid=6823116&page_num=0&page_size=10000&biz=all](https://api.vc.bilibili.com/link_draw/v1/doc/doc_list?uid=6823116&page_num=0&page_size=10000&biz=all) 中的内容保存为 doc_list.json，替换根目录下的doc_list.json
 
 
 ## 运行指南
@@ -7,7 +10,7 @@
 运行环境: nodejs 10.0.0 及更高版本
 
 ```
-git clone https://github.com/zhaoolee/bilibili-wallpaper.git
+git clone --depth=1 https://github.com/zhaoolee/bilibili-wallpaper.git
 cd bilibili-wallpaper
 npm i
 npm start
