@@ -24,10 +24,7 @@ async function getUrlAndName() {
 async function download(imgAndName, index) {
     // 拼接出, 当前资源的文件名
     let filename = imgAndName[1];
-
-
     let file_exist_result = await new Promise(async (resolve, reject) => {
-
         fs.access(path.join(__dirname, 'images', index + "-" + filename), fs.constants.F_OK, (err) => {
             if (err) {
                 resolve(false)
