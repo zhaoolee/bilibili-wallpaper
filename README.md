@@ -2,7 +2,9 @@
 
 登录bilibili.com
 
-将 [https://api.vc.bilibili.com/link_draw/v1/doc/doc_list?uid=6823116&page_num=0&page_size=10000&biz=all](https://api.vc.bilibili.com/link_draw/v1/doc/doc_list?uid=6823116&page_num=0&page_size=10000&biz=all) 中的内容保存为 doc_list.json，替换根目录下的doc_list.json
+~~将 [https://api.vc.bilibili.com/link_draw/v1/doc/doc_list?uid=6823116&page_num=0&page_size=10000&biz=all](https://api.vc.bilibili.com/link_draw/v1/doc/doc_list?uid=6823116&page_num=0&page_size=10000&biz=all) 中的内容保存为 doc_list.json，替换根目录下的doc_list.json~~
+
+
 
 
 ## 运行指南
@@ -12,6 +14,20 @@
 ```
 git clone --depth=1 https://github.com/zhaoolee/bilibili-wallpaper.git
 cd bilibili-wallpaper
+
+```
+
+打开开发者工具, 获取cookie
+
+![](https://cdn.fangyuanxiaozhan.com/assets/1659954230021610rWZny.png)
+
+![](https://cdn.fangyuanxiaozhan.com/assets/1659954410048sfWWWJTp.png)
+
+将复制的内容放入cookies.txt
+
+![](https://cdn.fangyuanxiaozhan.com/assets/1659955947149T4CPxTXG.png)
+
+```
 npm i
 npm start
 ```
