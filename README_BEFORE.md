@@ -19,13 +19,13 @@ cd bilibili-wallpaper
 
 打开开发者工具, 获取cookie
 
-![](https://raw.githubusercontent.com/zhaoolee/bilibili-wallpaper/master/README/1659956265565Jc40ZWXA.png)
+![](https://cdn.fangyuanxiaozhan.com/assets/1659954230021610rWZny.png)
 
-![](https://raw.githubusercontent.com/zhaoolee/bilibili-wallpaper/master/README/1659956268728pSDGb5sN.png)
+![](https://cdn.fangyuanxiaozhan.com/assets/1659954410048sfWWWJTp.png)
 
 将复制的内容放入cookies.txt
 
-![](https://raw.githubusercontent.com/zhaoolee/bilibili-wallpaper/master/README/1659956271921wJNiFT2e.png)
+![](https://cdn.fangyuanxiaozhan.com/assets/1659955947149T4CPxTXG.png)
 
 ```
 npm i
