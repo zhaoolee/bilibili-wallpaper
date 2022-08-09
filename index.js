@@ -8,7 +8,6 @@ async function getUrlAndName() {
     let imgAddrArray = [];
     // 请求资源
     let doc_list_json = JSON.parse(fs.readFileSync(path.join(__dirname, "doc_list.json")));
-    console.log('==doc_list_json==', doc_list_json);
     let res_info = doc_list_json.data.items;
     res_info.map((res_info_value, res_info_index) => {
         let pic_description = res_info_value.title + res_info_value.description;
@@ -59,21 +58,27 @@ async function download(imgAndName, index) {
 
 // 获取最新的信息
 async function getInfo() {
+
     // 记录当前页数
     let page_num = 0;
     // 记录是否继续循环
     let next = false;
+
     while (next === false) {
         // 读取cookies.txt内容，并基于cookies进行请求
         let cookieInfo = fs.readFileSync(path.join(__dirname, "cookie.txt"));
         await new Promise((resolve) => {
-            superagent.get(`https://api.vc.bilibili.com/link_draw/v1/doc/doc_list?uid=6823116&page_num=${page_num}&page_size=20&biz=all`)
-                .set('cookie', cookieInfo).end((err, res) => {
-
-                    let resTextJson =  JSON.parse(res.text);
-
+            console.log("请求==", `https://api.vc.bilibili.com/link_draw/v1/doc/doc_list?uid=6823116&page_num=${page_num}&page_size=20&biz=all`);
+            superagent
+                .get(`https://api.vc.bilibili.com/link_draw/v1/doc/doc_list?uid=6823116&page_num=${page_num}&page_size=20&biz=all`)
+                .set('cookie', cookieInfo)
+                .end((err, res) => {
+                    if (err) {
+                        console.log('err==', err);
+                    }
+                    let resTextJson = JSON.parse(res.text);
                     // 如果已经请求到底，则停止循环
-                    if (resTextJson['data']['items'] === null || resTextJson['data']['items'].length === 0) {
+                    if (resTextJson['data']['items'] === null) {
                         // 过滤掉空元素
                         let newItems = [];
                         let doc_list_json = JSON.parse(fs.readFileSync(path.join(__dirname, "doc_list.json")));
@@ -82,50 +87,70 @@ async function getInfo() {
                                 newItems.push(doc_list_json.data.items[i]);
                             }
                         }
-
                         doc_list_json.data.items = newItems;
                         fs.writeFileSync(path.join(__dirname, "doc_list.json"), JSON.stringify(doc_list_json));
                         next = true;
+                        resolve();
                     } else {
                         // 获取doc_list.json内容
                         let doc_list_json = JSON.parse(fs.readFileSync(path.join(__dirname, "doc_list.json")));
                         // 如果B站最新数据与doc_list.json中的内容相同, 则无需再次请求源
                         if (page_num === 0) {
-                            if(doc_list_json.data && resTextJson['data']){
-                                if(resTextJson['data']['items'][0].toString()
-                                === doc_list_json.data.items[0].toString()){
+                            if (doc_list_json.data && resTextJson['data']) {
+                                // 如果最新的数据与doc_list.json中的内容相同，且doc_list.json已经完成爬取(finish字段为true)，则无需再次请求源
+                                if ((resTextJson['data']['items'][0].toString()
+                                    === doc_list_json.data.items[0].toString()) && doc_list_json.finish === true) {
+
+                                    console.log('doc_list.json已经为最新数据源无需再次请求')
                                     next = true;
                                     resolve();
                                 }
-                            } 
+                            }
                             // 如果如果B站最新数据与doc_list.json中的内容不相同, 则更新数据
-                            else{
+                            else {
                                 fs.writeFileSync(path.join(__dirname, "doc_list.json"), res.text);
                             }
-                        } 
+                        }
                         // 持续更新数据
                         else {
-                            if(resTextJson['data']['items'] !== null){
-                                doc_list_json.data.items = [...doc_list_json.data.items, ...resTextJson['data']['items']];
+                            if (resTextJson['data']['items'] !== null) {
+                                doc_list_json.data.items = [...doc_list_json.data.items, ...resTextJson.data.items];
                                 fs.writeFileSync(path.join(__dirname, "doc_list.json"), JSON.stringify(doc_list_json));
                             }
                         }
-                        // 为了避免请求频繁，每次请求完成后休眠2秒
                         page_num = page_num + 1;
-                        setTimeout(() => {
-                            resolve();
-                        }, 2000)
+                        resolve();
                     }
                 })
         })
+        console.log("当前页数==", page_num)
     }
+
+    // 在doc_list.json中添加finish字段,保证已经完成数据源爬取
+
+    let doc_list_json = JSON.parse(fs.readFileSync(path.join(__dirname, "doc_list.json")));
+
+    doc_list_json['finish'] = true;
+
+    fs.writeFileSync(path.join(__dirname, "doc_list.json"), JSON.stringify(doc_list_json));
+
+    console.log('获取所有数据');
+
 }
 
 // 创建文件夹, 控制整体流程
 async function init() {
     // 创建文件夹
     try {
-        await fs.mkdir(path.join(__dirname, 'images'));
+        if (fs.existsSync(path.join(__dirname, 'images')) === false) {
+            await fs.mkdir(path.join(__dirname, 'images'));
+        }
+
+        // 创建doc_list.json文件
+        if (fs.existsSync(path.join(__dirname, 'doc_list.json')) === false) {
+            fs.writeFileSync(path.join(__dirname, 'doc_list.json'), "{}");
+        }
+
     }
     catch (err) {
         console.log("==>", err);

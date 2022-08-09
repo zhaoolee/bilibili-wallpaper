@@ -1,1 +1,6 @@
-请按照README.md提示，获取自己的cookie并填入
+登录bilibili.com, 打开开发者工具, 获取cookie 
+
+```
+document.cookie
+```
+将获得的字符贴到本文件, 字符前后不要有空格, 字符应该是用双引号包裹, 粘贴后保存

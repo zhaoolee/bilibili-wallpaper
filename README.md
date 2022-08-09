@@ -16,7 +16,11 @@ git clone --depth=1 https://github.com/zhaoolee/bilibili-wallpaper.git
 cd bilibili-wallpaper
 ```
 
-登录bilibili.com, 打开开发者工具, 获取cookie
+登录bilibili.com, 打开开发者工具, 获取cookie 
+
+```
+document.cookie
+```
 
 ![](https://raw.githubusercontent.com/zhaoolee/bilibili-wallpaper/master/README/1659956265565Jc40ZWXA.png)
 
